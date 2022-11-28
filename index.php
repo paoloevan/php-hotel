@@ -49,23 +49,55 @@ $hotels = [
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi' crossorigin='anonymous'>
 </head>
 
 <body>
-    <?php foreach ($hotels as $hotel) {
-        // var_dump($hotel['name']); 
-    ?>
-        <h3><?php echo $hotel['name']; ?></h3>
-        <p><?php echo $hotel['description']; ?></p>
-        <?php if ($hotel['parking']) { ?>
-            <p>Parcheggio: disponibile</p>
-        <?php } else { ?>
-            <p>Parcheggio: non disponibile</p>
 
-        <?php } ?>
-        <p>Distanza dal centro: <?php echo $hotel['distance_to_center'] ?></p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    <h5>Nome</h5>
+                </th>
+                <th scope="col">
+                    <h5>Descrizione</h5>
+                </th>
+                <th scope="col">
+                    <h5>Parcheggio</h5>
+                </th>
+                <th scope="col">
+                    <h5>Voto</h5>
+                </th>
+                <th scope="col">
+                    <h5>Distanza dal centro</h5>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($hotels as $hotel) { ?>
+                <tr>
+                    <th scope="row"><?php echo $hotel['name']; ?></th>
+                    <td><?php echo $hotel['description']; ?></td>
+                    <td>
+                        <?php if ($hotel['parking']) { ?>
+                            Disponibile
+                        <?php } else { ?>
+                            Non disponibile
+                        <?php } ?>
+                    </td>
+                    <td>
+                        <?php echo $hotel['vote']; ?>
+                    </td>
+                    <td>
+                        <?php echo $hotel['distance_to_center'] ?>
+                    </td>
+                </tr>
+            <?php } ?>
 
-    <?php } ?>
+        </tbody>
+    </table>
+
 </body>
 
 </html>
