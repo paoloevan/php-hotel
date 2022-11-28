@@ -1,6 +1,4 @@
 <?php
-// Aggiungere un form ad inizio pagina che tramite una richiesta GET permetta di filtrare gli hotel che hanno un parcheggio.
-// Aggiungere un secondo campo al form che permetta di filtrare gli hotel per voto.
 
 $hotels = [
 
@@ -94,9 +92,8 @@ $hotels = [
             <?php foreach ($hotels as $hotel) {
                 var_dump($hotel['vote']);
                 var_dump(intval($_GET['vote']));
-                // var_dump($_GET['vote']); 
             ?>
-                <?php if (($_GET['park'] === 'filter' && $hotel['parking']) || ($_GET['park'] === null)) { ?>
+                <?php if (($_GET['park'] === 'filter' && $hotel['parking'] && $hotel['vote'] >= intval($_GET['vote'])) || ($_GET['park'] === null && $hotel['vote'] >= intval($_GET['vote']))) { ?>
                     <tr>
                         <th scope="row"><?php echo $hotel['name']; ?></th>
                         <td><?php echo $hotel['description']; ?></td>
