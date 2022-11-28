@@ -42,7 +42,6 @@ $hotels = [
 
 ];
 
-// var_dump($_GET['park']);
 ?>
 
 <!DOCTYPE html>
@@ -60,8 +59,8 @@ $hotels = [
     <form class="container my-5" action="index.php" method="GET">
         <div class="form-check form-check-inline">
 
-            <!-- <label class="form-check-label" for="">Filtra per voto</label>
-            <input class="form-control mb-3" type="number" id="" value="option2" placeholder="Inserisci voto da 1 a 5"> -->
+            <label class="form-check-label" for="vote">Filtra per voto</label>
+            <input class="form-control mb-3" type="number" id="vote" name="vote" placeholder="Inserisci voto da 1 a 5">
 
             <input class="form-check-input" type="checkbox" id="park" name="park" value="filter">
             <label class="form-check-label" for="park">Filtra per parcheggio disponibile</label>
@@ -90,27 +89,14 @@ $hotels = [
                 </th>
             </tr>
         </thead>
+
         <tbody>
-            <?php foreach ($hotels as $hotel) { ?>
-                <?php if ($_GET['park'] === 'filter' && $hotel['parking']) { ?>
-                    <tr>
-                        <th scope="row"><?php echo $hotel['name']; ?></th>
-                        <td><?php echo $hotel['description']; ?></td>
-                        <td>
-                            <?php if ($hotel['parking']) { ?>
-                                Disponibile
-                            <?php } else { ?>
-                                Non disponibile
-                            <?php } ?>
-                        </td>
-                        <td>
-                            <?php echo $hotel['vote']; ?>
-                        </td>
-                        <td>
-                            <?php echo $hotel['distance_to_center'] ?>
-                        </td>
-                    </tr>
-                <?php } elseif ($_GET['park'] === null) { ?>
+            <?php foreach ($hotels as $hotel) {
+                var_dump($hotel['vote']);
+                var_dump(intval($_GET['vote']));
+                // var_dump($_GET['vote']); 
+            ?>
+                <?php if (($_GET['park'] === 'filter' && $hotel['parking']) || ($_GET['park'] === null)) { ?>
                     <tr>
                         <th scope="row"><?php echo $hotel['name']; ?></th>
                         <td><?php echo $hotel['description']; ?></td>
@@ -129,6 +115,7 @@ $hotels = [
                         </td>
                     </tr>
                 <?php } ?>
+
             <?php } ?>
 
         </tbody>
