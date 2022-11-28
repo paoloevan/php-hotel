@@ -1,4 +1,6 @@
 <?php
+// Aggiungere un form ad inizio pagina che tramite una richiesta GET permetta di filtrare gli hotel che hanno un parcheggio.
+// Aggiungere un secondo campo al form che permetta di filtrare gli hotel per voto.
 
 $hotels = [
 
@@ -39,6 +41,8 @@ $hotels = [
     ],
 
 ];
+
+// var_dump($_GET['park']);
 ?>
 
 <!DOCTYPE html>
@@ -48,11 +52,23 @@ $hotels = [
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Php Hotel</title>
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi' crossorigin='anonymous'>
 </head>
 
 <body>
+    <form class="container my-5" action="index.php" method="GET">
+        <div class="form-check form-check-inline">
+
+            <!-- <label class="form-check-label" for="">Filtra per voto</label>
+            <input class="form-control mb-3" type="number" id="" value="option2" placeholder="Inserisci voto da 1 a 5"> -->
+
+            <input class="form-check-input" type="checkbox" id="park" name="park" value="filter">
+            <label class="form-check-label" for="park">Filtra per parcheggio disponibile</label>
+        </div>
+        <button class="btn btn-primary" type="submit">Filtra</button>
+
+    </form>
 
     <table class="table">
         <thead>
@@ -76,23 +92,43 @@ $hotels = [
         </thead>
         <tbody>
             <?php foreach ($hotels as $hotel) { ?>
-                <tr>
-                    <th scope="row"><?php echo $hotel['name']; ?></th>
-                    <td><?php echo $hotel['description']; ?></td>
-                    <td>
-                        <?php if ($hotel['parking']) { ?>
-                            Disponibile
-                        <?php } else { ?>
-                            Non disponibile
-                        <?php } ?>
-                    </td>
-                    <td>
-                        <?php echo $hotel['vote']; ?>
-                    </td>
-                    <td>
-                        <?php echo $hotel['distance_to_center'] ?>
-                    </td>
-                </tr>
+                <?php if ($_GET['park'] === 'filter' && $hotel['parking']) { ?>
+                    <tr>
+                        <th scope="row"><?php echo $hotel['name']; ?></th>
+                        <td><?php echo $hotel['description']; ?></td>
+                        <td>
+                            <?php if ($hotel['parking']) { ?>
+                                Disponibile
+                            <?php } else { ?>
+                                Non disponibile
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <?php echo $hotel['vote']; ?>
+                        </td>
+                        <td>
+                            <?php echo $hotel['distance_to_center'] ?>
+                        </td>
+                    </tr>
+                <?php } elseif ($_GET['park'] === null) { ?>
+                    <tr>
+                        <th scope="row"><?php echo $hotel['name']; ?></th>
+                        <td><?php echo $hotel['description']; ?></td>
+                        <td>
+                            <?php if ($hotel['parking']) { ?>
+                                Disponibile
+                            <?php } else { ?>
+                                Non disponibile
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <?php echo $hotel['vote']; ?>
+                        </td>
+                        <td>
+                            <?php echo $hotel['distance_to_center'] ?>
+                        </td>
+                    </tr>
+                <?php } ?>
             <?php } ?>
 
         </tbody>
